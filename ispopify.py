@@ -260,14 +260,6 @@ genre_model_df, genre_X_train, genre_X_test, genre_y_train, genre_y_test = genre
 # About Page
 if st.session_state.page_selection == "about":
     st.header("ℹ️ About")
-    dataset
-    missing_values = pd.DataFrame({
-        "Column": dataset.columns,
-        "Nulls": dataset.isna().sum()
-    }).reset_index(drop=True)
-
-    st.dataframe(missing_values)
-    st.table(dataset.describe())
     # Your content for the ABOUT page goes here
 
 # Dataset Page
