@@ -260,7 +260,14 @@ genre_model_df, genre_X_train, genre_X_test, genre_y_train, genre_y_test = genre
 # About Page
 if st.session_state.page_selection == "about":
     st.header("ℹ️ About")
+    dataset
+    missing_values = pd.DataFrame({
+        "Column": dataset.columns,
+        "Nulls": dataset.isna().sum()
+    }).reset_index(drop=True)
 
+    st.dataframe(missing_values)
+    st.table(dataset.describe())
     # Your content for the ABOUT page goes here
 
 # Dataset Page
@@ -314,9 +321,9 @@ elif st.session_state.page_selection == "data_cleaning":
         
     st.markdown("""
                 We can see that the columns `track_name`, `track_artist`, and `track_album_name` each contain ***5 null values***. 
-                Notably, all of these null values originate from the same 5 rows in the dataset. Since the count of values are
+                Notably, all of these null values originate from the same 5 rows in the dataset. Since the count of values is
                 only 5, we can use `dropna()` to remove the rows with missing values. The count of the removed rows will not
-                have significant impact on the dataset size (more than 30,000) and is unlikely to skew the analysis or model results.
+                have a significant impact on the dataset size (more than 30,000) and is unlikely to skew the analysis or model results.
     """)
     st.markdown("---")
     st.markdown("### Converting Dates and Adding Track Age and Track Decade Columns")
@@ -358,7 +365,7 @@ elif st.session_state.page_selection == "data_cleaning":
     st.markdown("""
                 To address the improperly formatted dates, we implemented a function `refineDates` that takes a date 
                 string as input and checks its length to determine how to format it correctly. If the date has 10 characters, 
-                we assume it is already in the proper format *(YYYY-MM-DD)* and return it as is. If the date that are only 4 
+                we assume it is already in the proper format *(YYYY-MM-DD)* and return it as is. If the date is only 4 
                 characters long (year), we append "**-01-01**"  set it as January 1st of that year. Else if the date string is 
                 neither 10 nor 4 characters, we assume it has month and year *(YYYY-MM)* we append "**-01**" to set it to the first 
                 day of the month. We then apply this function to the track_album_release_date column of the dataset.
@@ -375,8 +382,8 @@ elif st.session_state.page_selection == "data_cleaning":
             data['track_decade'] = (data['track_year'] // 10) * 10
             """)
     st.markdown("""
-                We coverted the `track_album_release_date` column to datetime format then extracted the year and month into new 
-                columns, `track_year` and `track_month`. Additionally, we calculated the age of each and the decade they are released,
+                We converted the `track_album_release_date` column to datetime format then extracted the year and month into new 
+                columns, `track_year` and `track_month`. Additionally, we calculated the age of each and the decade they were released,
                 storing the result in the `track_age` and `track_decade` column.
                 """)
     st.markdown("---")
@@ -553,7 +560,7 @@ elif st.session_state.page_selection == "data_cleaning":
         genre_X_test
         st.markdown(f"*Count: `{genre_X_test.shape[0]}`*")
         st.markdown("""
-                    For the genre classification, we used the similar method to split the dataset into training and testing. 
+                    For the genre classification, we used a similar method to split the dataset into training and testing. 
                     The difference is the feature selection, as for this model, we did not drop the columns as we did in the previous 
                     model. We also included the `track_popularity` for this model, which is the target variable for the previous one.
                     We then assigned the encoded playlist genre, `playlist_genre_encoded`, as the target variable `y`.
