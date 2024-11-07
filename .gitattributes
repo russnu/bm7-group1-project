@@ -1,1 +1,2 @@
-
+assets/models/popularity_model.joblib filter=lfs diff=lfs merge=lfs -text
+assets/models/genre_model.joblib filter=lfs diff=lfs merge=lfs -text
