@@ -261,13 +261,13 @@ genre_model_df, genre_X_train, genre_X_test, genre_y_train, genre_y_test = genre
 if st.session_state.page_selection == "about":
     st.header("ℹ️ About")
     # Your content for the ABOUT page goes here
-st.markdown("""
-The proposed project is a web-based application developed using **Streamlit** with the intention of creating an easy to use interactive data entry, processing and visualization web app. 
-It implements a multi-page design for easy traversing, session control for changing content, and adapting the application for mobile devices for usability. 
-The application is built using **Python**, **Pandas**, and **Matplotlib** for the purpose of processing and representing data in real time. 
-The key objective of this technology is to demonstrate the simplicity of using complex web applications to engage with the content by means of appealing designs. 
-Enhancements in subsequent versions could include incorporation of databases, integration of sophisticated analytics, and improvement in user interface design.
-""")
+    st.markdown("""
+    The proposed project is a web-based application developed using **Streamlit** with the intention of creating an easy to use interactive data entry, processing and visualization web app. 
+    It implements a multi-page design for easy traversing, session control for changing content, and adapting the application for mobile devices for usability. 
+    The application is built using **Python**, **Pandas**, and **Matplotlib** for the purpose of processing and representing data in real time. 
+    The key objective of this technology is to demonstrate the simplicity of using complex web applications to engage with the content by means of appealing designs. 
+    Enhancements in subsequent versions could include incorporation of databases, integration of sophisticated analytics, and improvement in user interface design.
+    """)
 
 # Dataset Page
 elif st.session_state.page_selection == "dataset":
