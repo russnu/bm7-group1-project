@@ -261,6 +261,13 @@ genre_model_df, genre_X_train, genre_X_test, genre_y_train, genre_y_test = genre
 if st.session_state.page_selection == "about":
     st.header("ℹ️ About")
     # Your content for the ABOUT page goes here
+st.markdown("""
+The proposed project is a web-based application developed using **Streamlit** with the intention of creating an easy to use interactive data entry, processing and visualization web app. 
+It implements a multi-page design for easy traversing, session control for changing content, and adapting the application for mobile devices for usability. 
+The application is built using **Python**, **Pandas**, and **Matplotlib** for the purpose of processing and representing data in real time. 
+The key objective of this technology is to demonstrate the simplicity of using complex web applications to engage with the content by means of appealing designs. 
+Enhancements in subsequent versions could include incorporation of databases, integration of sophisticated analytics, and improvement in user interface design.
+""")
 
 # Dataset Page
 elif st.session_state.page_selection == "dataset":
@@ -939,3 +946,14 @@ elif st.session_state.page_selection == "conclusion":
     st.header("📝 Conclusion")
 
     # Your content for the CONCLUSION page goes here
+    st.markdown("""
+    This project exhibits the strength and versatility offered by Streamlit when it comes to designing interactive multi-functional web solutions. 
+The user interface of the application is designed in such a way that it allows users to easily find their way among different parts of the application through a well-structured multi-page format. 
+Every page has its own role, be it entering the data, processing, presenting, or outlining it, which is an illustration of how contemporary web infrastructures can carry out complicated processes in one system.
+
+    Before and during building the app, we drew on various approaches to enhance the interactivity and usability of the application, including session management, dynamic content rendering, and mobile device support. 
+This shows the need for developing implementable solutions that revolve around the user and allow for real-time reactions to be made with instant feedback.
+
+    In conclusion, this project demonstrates how good and useful internet-based instruments are in dealing with intricate issues, improving processes, and giving results. 
+A better and more advanced application can be built on the basis of the skills and technologies offered here.
+    """)
