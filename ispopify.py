@@ -261,12 +261,16 @@ genre_model_df, genre_X_train, genre_X_test, genre_y_train, genre_y_test = genre
 if st.session_state.page_selection == "about":
     st.header("ℹ️ About")
     # Your content for the ABOUT page goes here
-    st.markdown("""
-    The proposed project is a web-based application developed using **Streamlit** with the intention of creating an easy to use interactive data entry, processing and visualization web app. 
-    It implements a multi-page design for easy traversing, session control for changing content, and adapting the application for mobile devices for usability. 
-    The application is built using **Python**, **Pandas**, and **Matplotlib** for the purpose of processing and representing data in real time. 
-    The key objective of this technology is to demonstrate the simplicity of using complex web applications to engage with the content by means of appealing designs. 
-    Enhancements in subsequent versions could include incorporation of databases, integration of sophisticated analytics, and improvement in user interface design.
+   st.markdown("""
+    A Streamlit web application that 
+
+    ### Pages:
+    1. **Dataset** - 
+    2. **EDA** - 
+    3. **Data Cleaning / Pre-processing** - 
+    4. **Machine Learning** - 
+    5. **Prediction** - 
+    6. **Conclusion** - Summary of the analysis and findings from the exploratory data analysis and model training processes.
     """)
 
 # Dataset Page
@@ -947,13 +951,16 @@ elif st.session_state.page_selection == "conclusion":
 
     # Your content for the CONCLUSION page goes here
     st.markdown("""
-    This project exhibits the strength and versatility offered by Streamlit when it comes to designing interactive multi-functional web solutions. 
-The user interface of the application is designed in such a way that it allows users to easily find their way among different parts of the application through a well-structured multi-page format. 
-Every page has its own role, be it entering the data, processing, presenting, or outlining it, which is an illustration of how contemporary web infrastructures can carry out complicated processes in one system.
+### 1. Popularity Level Classification
+- Using Random Forest Classification, the model achieved **accuracy of 75.46%**, indicating that the model performed relatively well in predicting popularity levels.
+- The model achieved a **precision of 0.77** and **recall of 0.76** for low-popularity tracks.
+- For medium-popularity tracks, the model achieved a **precision of 0.69** and **recall of 0.72**.
+- The model performs best with high-popularity tracks, with a **precision of 0.80** and **recall of 0.78**, suggesting that it can identify most high-popularity tracks effectively.
 
-    Before and during building the app, we drew on various approaches to enhance the interactivity and usability of the application, including session management, dynamic content rendering, and mobile device support. 
-This shows the need for developing implementable solutions that revolve around the user and allow for real-time reactions to be made with instant feedback.
-
-    In conclusion, this project demonstrates how good and useful internet-based instruments are in dealing with intricate issues, improving processes, and giving results. 
-A better and more advanced application can be built on the basis of the skills and technologies offered here.
-    """)
+### 2. Genre Classification
+- The genre classification model achieved an **accuracy of 58.65%**, indicating that the model has some ability to classify genres, though with room for improvement.
+- The **Rock** genre achieves the highest precision and recall, with **0.77** and **0.80**, respectively. This suggests that the model is most effective in classifying rock tracks.
+- For **EDM** and **Rap** genres, the model achieved a **0.66 precision** and **0.72 recall** for EDM, and **0.59 precision** and **0.64 recall** for Rap.
+- The model struggles most with **Latin** and **Pop** genres, with lower precision and recall of **0.40** for Pop, and **0.51** and **0.47** for Latin.
+- For **R&B** genre, the model achieved a **precision of 0.54** and **recall of 0.47**.
+""")
