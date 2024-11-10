@@ -26,8 +26,8 @@ genre_model = joblib.load('assets/models/genre_model.joblib')
 #######################
 # Page configuration
 st.set_page_config(
-    page_title="IsPopify", # Replace this with your Project's Title
-    page_icon="assets/spotify_icon.png", # You may replace this with a custom icon or emoji related to your project
+    page_title="IsPopify",
+    page_icon="assets/spotify_icon.png",
     layout="wide",
     initial_sidebar_state="expanded")
 
@@ -261,7 +261,7 @@ genre_model_df, genre_X_train, genre_X_test, genre_y_train, genre_y_test = genre
 if st.session_state.page_selection == "about":
     st.header("ℹ️ About")
     # Your content for the ABOUT page goes here
-   st.markdown("""
+    st.markdown("""
     A Streamlit web application that 
 
     ### Pages:
@@ -949,18 +949,23 @@ elif st.session_state.page_selection == "prediction":
 elif st.session_state.page_selection == "conclusion":
     st.header("📝 Conclusion")
 
-    # Your content for the CONCLUSION page goes here
     st.markdown("""
-### 1. Popularity Level Classification
-- Using Random Forest Classification, the model achieved **accuracy of 75.46%**, indicating that the model performed relatively well in predicting popularity levels.
-- The model achieved a **precision of 0.77** and **recall of 0.76** for low-popularity tracks.
-- For medium-popularity tracks, the model achieved a **precision of 0.69** and **recall of 0.72**.
-- The model performs best with high-popularity tracks, with a **precision of 0.80** and **recall of 0.78**, suggesting that it can identify most high-popularity tracks effectively.
+### **Dataset Characteristics**
+ - Among the audio features, `energy` and `loudness` show the strongest positive correlation, indicating that high-energy songs are generally louder
+ - The genre distribution is balanced, providing equal representation of each genre, which helps the model learn fairly without bias. 
+ - `Pop` and `Latin` genres have the highest average popularity, while EDM has the lowest. Subgenres also show differences, with `Post-Teen Pop` being the most popular and `Progressive Electro House` the least.
+ - Each genre shows unique characteristics. EDM tracks have the highest energy, while R&B songs are generally less intense. Rap is more speech-focused, while EDM has fewer vocals. Song speed and length also vary, with EDM tracks being faster and Rock songs tending to be longer.
 
-### 2. Genre Classification
-- The genre classification model achieved an **accuracy of 58.65%**, indicating that the model has some ability to classify genres, though with room for improvement.
-- The **Rock** genre achieves the highest precision and recall, with **0.77** and **0.80**, respectively. This suggests that the model is most effective in classifying rock tracks.
-- For **EDM** and **Rap** genres, the model achieved a **0.66 precision** and **0.72 recall** for EDM, and **0.59 precision** and **0.64 recall** for Rap.
-- The model struggles most with **Latin** and **Pop** genres, with lower precision and recall of **0.40** for Pop, and **0.51** and **0.47** for Latin.
-- For **R&B** genre, the model achieved a **precision of 0.54** and **recall of 0.47**.
-""")
+### **Popularity Level Classification**
+ - Using Random Forest Classification, the model achieved ***`accuracy of 75.46%`***, indicating a that model performed relatively well in predicting popularity levels.
+ - The model achieved a ***precision of 0.77*** and ***recall of 0.76*** for `low-popularity` tracks.
+ - For `medium-popularity` tracks, the model achieved a ***precision of 0.69*** and ***recall of 0.72***.
+ -  The model performs best with `high-popularity` tracks, with a ***precision of 0.80*** and ***recall of 0.78***, suggesting that it can identify most high-popularity tracks effectively.
+
+### **Genre Classification**
+ - The genre classification model achieved an ***`accuracy of 58.65%`***, which indicates that the model has some ability to classify genres, though with room for improvement.
+ - The `Rock` genre Achieves the highest precision and recall, with ***`0.77`*** and ***`0.80***`, respectively. This suggests that the model is most effective in classifying rock tracks.
+ - For `EDM` and `Rap` genres, the model achieved a ***0.66 precision*** and ***0.72 recall*** for EDM, and ***0.59 precision*** and ***0.64 recall*** for Rap.
+ - The model struggles most with `Latin` and `Pop` genres, with lower precision and recall of ***0.40*** for Pop, and ***0.51*** and ***0.47*** for Latin.
+ - For `R&B` genre, the model achieved a ***precision of 0.54*** and ***recall of 0.47***.
+    """)
