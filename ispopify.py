@@ -634,7 +634,7 @@ elif st.session_state.page_selection == "machine_learning":
         st.markdown(f"*Popularity level feature importance*")
         st.dataframe(popularity_feature_importance_df, height=500)
     with col[1]:
-        feature_importance_plot(popularity_feature_importance_df, 500, 600, 2)
+        feature_importance_plot(popularity_feature_importance_df, 500, 600, 1)
     st.markdown("""
                 We can see from the  feature importance analysis that `artist popularity` is the most influential feature, with 
                 ***0.35*** or ***35%*** importance in predicting track popularity. This shows that a track's popularity is strongly 
