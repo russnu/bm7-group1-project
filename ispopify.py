@@ -688,7 +688,7 @@ elif st.session_state.page_selection == "machine_learning":
                 """)
     st.table(genre_classification_df)
     st.markdown("""
-                The genre classification model achieved an ***`accuracy of 59.11%`***, which indicates it has some ability to 
+                The genre classification model achieved an ***`accuracy of 58.65%`***, which indicates it has some ability to 
                 differentiate between genres, though there is room for improvement.The model performs best classifying `Rock` genre, with
                 a precision of ***0.78*** and recall of ***0.80***. For `EDM` and `Rap` genres, the model also performs reasonably well, 
                 with precision values of ***0.66*** and ***0.60***, respectively, and recall scores above ***0.65***. This suggests that 
