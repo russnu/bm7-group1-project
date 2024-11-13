@@ -684,7 +684,7 @@ elif st.session_state.page_selection == "machine_learning":
     genre_classification_df = genre_classification_df.rename(index=str.title)   
     st.markdown(f""" 
                 ##### *Classification Report*   
-                **Accuracy** : ***`{genre_accuracy:.2f}`***
+                **Accuracy** : ***`{genre_accuracy * 100:.2f}%`***
                 """)
     st.table(genre_classification_df)
     st.markdown("""
