@@ -305,7 +305,6 @@ elif st.session_state.page_selection == "dataset":
     st.subheader("Descriptive Statistics")
     st.dataframe(pd.read_csv("data/spotify_songs.csv").describe(), use_container_width=True)
 
-    st.markdown("""
 
     st.markdown("""
 
