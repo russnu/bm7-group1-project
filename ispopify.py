@@ -287,16 +287,39 @@ elif st.session_state.page_selection == "dataset":
 elif st.session_state.page_selection == "eda":
     st.header("📈 Exploratory Data Analysis (EDA)")
 
+      col = st.columns((3, 3, 3), gap='medium')
+
+    with col[0]:
+
+        with st.expander('Legend', expanded=True):
+            st.write('''
+                - Data: [Spotify Songs](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs).
+                - :orange[**Pie Chart**]: Distribution of the Music Genre in the dataset.
+                - :orange[**Scatter Plots**]: Difference of Iris species' features.
+                - :orange[**Pairwise Scatter Plot Matrix**]: Highlighting *overlaps* and *differences* among Iris species' features.
+                ''')
+            
+        st.markdown('Playlist Genre Distribution')
+        pie_chart("species", 500, 350, 1)
+
+        
+
+
+
+
 
     col = st.columns((1.5, 4.5, 2), gap='medium')
 
     # Your content for the EDA page goes here
 
-    with col[0]:
-        st.markdown('#### Graphs Column 1')
 
-    with col[1]:
-        st.markdown('#### Graphs Column 2')
+ with col[1]:
+        st.markdown('#### Sepal Length by Species')
+        scatter_plot("sepal_length", 500, 300, 1)
+             
+        st.markdown('#### Sepal Width by Species')
+        scatter_plot("sepal_width", 500, 300, 2)
+
         
     with col[2]:
         st.markdown('#### Graphs Column 3')
