@@ -276,12 +276,15 @@ if st.session_state.page_selection == "about":
 
 # Dataset Page
 elif st.session_state.page_selection == "dataset":
-    st.header("📊 Dataset")
+     st.header("📊 Dataset")
 
-    st.write("30000 Spotify Songs Dataset")
-    st.write("")
+    st.markdown("""
 
-    # Your content for your DATASET page goes here
+    The dataset contains almost 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, information about the album, and information about the genre. Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness, among others[1].
+
+    `Link:` https://www.kaggle.com/datasets/arshid/iris-flower-dataset            
+                
+    """)
 
 # EDA Page
 elif st.session_state.page_selection == "eda":
