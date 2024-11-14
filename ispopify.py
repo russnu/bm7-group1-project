@@ -360,7 +360,7 @@ elif st.session_state.page_selection == "data_cleaning":
         
         st.markdown("*Drop rows with missing values*")
         st.code("""
-                data = data.dropna()
+                data=data.dropna()
         """)
         
     st.markdown("""
