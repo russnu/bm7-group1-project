@@ -307,10 +307,20 @@ elif st.session_state.page_selection == "dataset":
 
     st.markdown("""
 
-    The results from `df.describe()` highlights the descriptive statistics about the dataset. The average track popularity is 42.47,
-    with popularity scores spanning from *to 100*. Audio features like danceability and energy have high averages, with 0.65 and 0.69, respectively. Loudness ranges significantly
-    from -46.4 dB to 1.27 dB. Track durations vary widely,
-    averaging around 225,800 milliseconds (about 3.8 minutes) but ranging from 4 seconds to over 8.5 minutes.
+    st.markdown("""
+
+    The results from `df.describe()` highlights the descriptive statistics about the dataset. 
+    
+    The average track popularity is 42.47, with popularity scores spanning from  to 100. 
+    
+    Audio features like danceability and energy have high averages, with 0.65 and 0.69, respectively. 
+    
+    Loudness ranges significantly from -46.4 dB to 1.27 dB. Track durations vary widely, 
+    
+    averaging around 225,800 milliseconds (about 3.8 minutes) but ranging from 4 seconds to over 8.5 minutes
+                
+    """)
+
                 
     """)
 
