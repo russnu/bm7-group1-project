@@ -287,9 +287,8 @@ elif st.session_state.page_selection == "dataset":
 elif st.session_state.page_selection == "eda":
     st.header("📈 Exploratory Data Analysis (EDA)")
 
-     col = st.columns((3, 3, 3), gap='medium')
 
-   with col[0]:
+   with col[1]:
 
         with st.expander('Legend', expanded=True):
             st.write('''
