@@ -346,21 +346,21 @@ elif st.session_state.page_selection == "eda":
 elif st.session_state.page_selection == "data_cleaning":
     st.header("🧼 Data Cleaning and Data Pre-processing")
     # Your content for the DATA CLEANING / PREPROCESSING page goes here
-    
+
     st.markdown("### Dropping Null Values")
-    col = st.columns([1,3])
-   with col[1]: 
-        st.markdown("*Null Values*") 
+    col = st.columns([1, 3])
+
+    with col[1]:
+        st.markdown("*Null Values*")
         null_columns = dataset[['track_id'] + dataset.columns[dataset.isna().any()].tolist()]
         null_values = null_columns[null_columns.isna().any(axis=1)]
-        st.dataframe(null_values)   
-        
-        st.markdown("*Drop rows with missing values*")
-        st.code("""]
-                           data = data.dropna()
+        st.dataframe(null_values)
 
+        st.markdown("*Drop rows with missing values*")
+        st.code("""
+data = data.dropna()
         """)
-        
+
 
     st.markdown("""
                 We can see that the columns `track_name`, `track_artist`, and `track_album_name` each contain ***5 null values***. 
