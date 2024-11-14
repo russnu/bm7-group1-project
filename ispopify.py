@@ -262,14 +262,15 @@ if st.session_state.page_selection == "about":
     st.header("ℹ️ About")
     # Your content for the ABOUT page goes here
     st.markdown("""
-    A Streamlit web application that 
+    A Streamlit web application that utilize **Exploratory Data Analysis**, **Data Preprocessing**, and **Machine Learning** to analyze and classify songs from the Spotify API with the 30000 Spotify Songs dataset. It also uses **Random Forest Classifier**, **Popularity Level Classification** and **Genre Classification**.
 
     ### Pages:
-    1. **Dataset** - 
-    2. **EDA** - 
-    3. **Data Cleaning / Pre-processing** - 
-    4. **Machine Learning** - 
-    5. **Prediction** - 
+    1. **Dataset** - The dataset contains around 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, information about the album, and information about the genre.
+                     Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness, among others.
+    2. **EDA** - Exploratory Data Analysis of 30000 Spotify Songs. Contains the distribution and relationships of different data into various graphs.
+    3. **Data Cleaning / Pre-processing** - Data cleaning and pre-processing steps this includes Dropping Null Values, Adding Track Age and Track Decade Column, Encoding Genre and Subgenre, Categorizing Popularity, and Adding Artist Popularity Column.
+    4. **Machine Learning** - Using **Random Forest Classifier** to train **Popularity Level Classification**, and **Genre Classification**. This page also includes each model's model evaluation, and feature importance.
+    5. **Prediction** - Prediction page that makes use of the models to predict the song's popularity level and genre.
     6. **Conclusion** - Summary of the analysis and findings from the exploratory data analysis and model training processes.
     """)
 
