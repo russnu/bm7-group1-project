@@ -293,8 +293,8 @@ elif st.session_state.page_selection == "eda":
 
         with st.expander('Legend', expanded=True):
             st.write('''
-                - Data: [Iris Flower Dataset](https://www.kaggle.com/datasets/arshid/iris-flower-dataset).
-                - :orange[**Pie Chart**]: Distribution of the 3 Iris species in the dataset.
+                - Data: [Iris Flower Dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs).
+                - :orange[**Pie Chart**]: Distribution of the Music Genre in the dataset.
                 - :orange[**Scatter Plots**]: Difference of Iris species' features.
                 - :orange[**Pairwise Scatter Plot Matrix**]: Highlighting *overlaps* and *differences* among Iris species' features.
                 ''')
