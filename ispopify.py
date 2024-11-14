@@ -274,17 +274,59 @@ if st.session_state.page_selection == "about":
     6. **Conclusion** - Summary of the analysis and findings from the exploratory data analysis and model training processes.
     """)
 
+
+
+
+
 # Dataset Page
 elif st.session_state.page_selection == "dataset":
-     st.header("📊 Dataset")
+    st.header("📊 Dataset")
 
     st.markdown("""
 
-    The dataset contains almost 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, information about the album, an
-    
-    d information about the genre. Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness, among others[1].
+   The dataset contains almost 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, 
+   information about the album, and information about the genre. Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness,
+   among others[1].
 
-    `Link:` https://www.kaggle.com/datasets/arshid/iris-flower-dataset            
+    """)
+
+    col_iris = st.columns((3, 3, 3), gap='medium')
+
+    # Define the new dimensions (width, height)
+    resize_dimensions = (500, 300)  # Example dimensions, adjust as needed
+
+    with col_iris[0]:
+        setosa_image = Image.open('assets/iris_pictures/setosa.webp')
+        setosa_image = setosa_image.resize(resize_dimensions)
+        st.image(setosa_image, caption='Iris Setosa')
+
+    with col_iris[1]:
+        versicolor_image = Image.open('assets/iris_pictures/versicolor.webp')
+        versicolor_image = versicolor_image.resize(resize_dimensions)
+        st.image(versicolor_image, caption='Iris Versicolor')
+
+    with col_iris[2]:
+
+        virginica_image = Image.open('assets/iris_pictures/virginica.webp')
+        virginica_image = virginica_image.resize(resize_dimensions)
+        st.image(virginica_image, caption='Iris Virginica')
+        
+
+    # Display the dataset
+    st.subheader("Dataset displayed as a Data Frame")
+    st.dataframe(iris_df, use_container_width=True, hide_index=True)
+
+    # Describe Statistics
+    st.subheader("Descriptive Statistics")
+    st.dataframe(iris_df.describe(), use_container_width=True)
+
+    st.markdown("""
+
+    The results from `df.describe()` highlights the descriptive statistics about the dataset. First the **sepal length** averages *5.84 cm* with a standard deviation of *0.83* which indicates moderate variation around the mean. **Sepal width** on the other hand has a lower mean of *3.05* cm and shows less spread with a standard deviation of *0.43*, this indicates that the values of sepal width are generally more consistent. Moving on with **petal length** and **petal width**, these columns show greater variability with means of *3.76 cm* and *1.20 cm* and standard deviation of *1.76* and *0.76*. This suggests that these dimansions vary more significantly across the species.  
+
+    Speaking of minimum and maximum values, petal length ranges from *1.0 cm* up to *6.9 cm*, petal width from *0.1 cm* to *2.5 cm* suggesting that there's a distinct difference between the species.  
+
+    The 25th, 50th, and 75th percentiles on the other hand reveals a gradual increase across all features indicating that the dataset offers a promising potential to be used for classification techniques.
                 
     """)
 
