@@ -293,7 +293,7 @@ elif st.session_state.page_selection == "eda":
 
         with st.expander('Legend', expanded=True):
             st.write('''
-                - Data: [Iris Flower Dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs).
+                - Data: [30000 Spotify Songs](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs).
                 - :orange[**Pie Chart**]: Distribution of the Music Genre in the dataset.
                 - :orange[**Scatter Plots**]: Difference of Iris species' features.
                 - :orange[**Pairwise Scatter Plot Matrix**]: Highlighting *overlaps* and *differences* among Iris species' features.
@@ -304,17 +304,17 @@ elif st.session_state.page_selection == "eda":
         pie_chart("species", 500, 350, 1)
 
     with col[1]:
-        st.markdown('#### Sepal Length by Species')
+        st.markdown('#### danceability')
         scatter_plot("sepal_length", 500, 300, 1)
 
-        st.markdown('#### Sepal Width by Species')
+        st.markdown('#### energy')
         scatter_plot("sepal_width", 500, 300, 2)
         
     with col[2]:
-        st.markdown('#### Petal Length by Species')
+        st.markdown('#### speechiness')
         scatter_plot("petal_length", 500, 300, 3)
 
-        st.markdown('#### Petal Width by Species')
+        st.markdown('#### acousticness')
         scatter_plot("petal_width", 500, 300, 4)
 
     st.markdown('#### Pairwise Scatter Plot Matrix')
