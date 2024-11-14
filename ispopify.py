@@ -280,7 +280,9 @@ elif st.session_state.page_selection == "dataset":
 
     st.markdown("""
 
-    The dataset contains almost 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, information about the album, and information about the genre. Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness, among others[1].
+    The dataset contains almost 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, information about the album, an
+    
+    d information about the genre. Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness, among others[1].
 
     `Link:` https://www.kaggle.com/datasets/arshid/iris-flower-dataset            
                 
