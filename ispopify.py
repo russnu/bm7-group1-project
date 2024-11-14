@@ -368,7 +368,7 @@ elif st.session_state.page_selection == "eda":
 
     st.markdown("""
                 
-    Based on the results we can see that there's a **balanced distribution** of the `3 Iris flower species`. With this in mind, we don't need to perform any pre-processing techniques anymore to balance the classes since it's already balanced.
+    Based on the results we can see that there's a **balanced distribution** of the `3 Iris flower species`. With this in mind, we don't need to perform any pre-processing techniques anymore to balance the classes since it's 
          
     """)
 
