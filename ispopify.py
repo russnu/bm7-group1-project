@@ -296,35 +296,14 @@ elif st.session_state.page_selection == "dataset":
 
     """)
 
-    col_iris = st.columns((3, 3, 3), gap='medium')
-
-    # Define the new dimensions (width, height)
-    resize_dimensions = (500, 300)  # Example dimensions, adjust as needed
-
-    with col_iris[0]:
-        setosa_image = Image.open('assets/iris_pictures/setosa.webp')
-        setosa_image = setosa_image.resize(resize_dimensions)
-        st.image(setosa_image, caption='Iris Setosa')
-
-    with col_iris[1]:
-        versicolor_image = Image.open('assets/iris_pictures/versicolor.webp')
-        versicolor_image = versicolor_image.resize(resize_dimensions)
-        st.image(versicolor_image, caption='Iris Versicolor')
-
-    with col_iris[2]:
-
-        virginica_image = Image.open('assets/iris_pictures/virginica.webp')
-        virginica_image = virginica_image.resize(resize_dimensions)
-        st.image(virginica_image, caption='Iris Virginica')
-        
 
     # Display the dataset
     st.subheader("Dataset displayed as a Data Frame")
-    st.dataframe(iris_df, use_container_width=True, hide_index=True)
+    st.dataframe(pd.read_csv("data/spotify_songs.csv"), use_container_width=True, hide_index=True)
 
     # Describe Statistics
     st.subheader("Descriptive Statistics")
-    st.dataframe(iris_df.describe(), use_container_width=True)
+    st.dataframe(pd.read_csv("data/spotify_songs.csv").describe(), use_container_width=True)
 
     st.markdown("""
 
