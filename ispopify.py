@@ -312,12 +312,6 @@ elif st.session_state.page_selection == "eda":
     # Your content for the EDA page goes here
 
 
- with col[1]:
-        st.markdown('#### Sepal Length by Species')
-        scatter_plot("sepal_length", 500, 300, 1)
-             
-        st.markdown('#### Sepal Width by Species')
-        scatter_plot("sepal_width", 500, 300, 2)
 
         
     with col[2]:
