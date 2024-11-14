@@ -288,6 +288,12 @@ elif st.session_state.page_selection == "dataset":
    information about the album, and information about the genre. Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness,
    among others[1].
 
+   **Content**
+   The table displays the columns of the dataset along with their respective data types and descriptions. 
+
+   'Link:' https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs
+
+
     """)
 
     col_iris = st.columns((3, 3, 3), gap='medium')
