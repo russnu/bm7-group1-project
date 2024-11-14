@@ -352,17 +352,17 @@ elif st.session_state.page_selection == "data_cleaning":
     with col[0]:
         st.markdown("*Count of null values*")
         st.dataframe(dataset.isna().sum())
-    with col[1]: 
-        st.markdown("*Null Values*") 
-        null_columns = dataset[['track_id'] + dataset.columns[dataset.isna().any()].tolist()]
-        null_values = null_columns[null_columns.isna().any(axis=1)]
-        st.dataframe(null_values)   
-        
-        st.markdown("*Drop rows with missing values*")
-        st.code("""
-            data = data.dropna()
-        """)
-        
+ with col[1]:
+    st.markdown("*Null Values*")
+    null_columns = dataset[['track_id'] + dataset.columns[dataset.isna().any()].tolist()]
+    null_values = null_columns[null_columns.isna().any(axis=1)]
+    st.dataframe(null_values)
+    
+    st.markdown("*Drop rows with missing values*")
+    st.code("""
+data = data.dropna()
+    """)
+
     st.markdown("""
                 We can see that the columns `track_name`, `track_artist`, and `track_album_name` each contain ***5 null values***. 
                 Notably, all of these null values originate from the same 5 rows in the dataset. Since the count of values is
