@@ -34,6 +34,43 @@ st.set_page_config(
 alt.themes.enable("dark")
 
 #######################
+def pie_chart(df, column, width, height, pie_chart_title,key):
+    df[column] = df[column].str.title()
+    pie_chart = px.pie(df, 
+                       names=df[column].unique(), 
+                       values=df[column].value_counts().values,
+                       color_discrete_sequence=px.colors.qualitative.Pastel)
+
+    pie_chart.update_layout(
+        width=width,
+        height=height,
+        title = pie_chart_title,
+        margin=dict(b=10) 
+    )
+
+    st.plotly_chart(pie_chart, use_container_width=True,  key=f"pie_chart_{key}")
+#------------------------------------------------------------------------------------------#
+def bar_plot(df, x, y, width, height, bar_plot_title, title_size, key):
+    bar_plot_fig = px.bar(
+        df,
+        x=x,
+        y=y,
+        orientation='v',
+        title=bar_plot_title,
+        color=x,
+        color_discrete_sequence=px.colors.qualitative.Pastel
+    )
+    bar_plot_fig.update_layout(
+        width=width,
+        height=height,
+        showlegend=False,
+        xaxis_title=x.replace('_', ' ').title(),
+        yaxis_title=y.replace('_', ' ').title(),
+        title=dict(font=dict(size=title_size)),
+        margin=dict(b=10) 
+    )
+    st.plotly_chart(bar_plot_fig, use_container_width=True, key=f"bar_plot{key}")
+#------------------------------------------------------------------------------------------#
 def features_heatmap(features_correlation, width, height, key, heatmap_title):
     
     heatmap_fig = px.imshow(
@@ -55,7 +92,56 @@ def features_heatmap(features_correlation, width, height, key, heatmap_title):
     )
     with st.container():
         st.plotly_chart(heatmap_fig, theme=None, use_container_width=True, key=f"heatmap_{key}")
-     #------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------#
+def histogram(data, x, width, height, histogram_title):
+    fig = px.histogram(data, 
+                       x=x, 
+                       opacity=0.6,
+                       title=histogram_title,)
+    fig.update_layout(width=width,
+                      height=height,
+                      title=dict(font=dict(size=24)))
+    fig.update_xaxes(title_text=x.replace('_', ' ').title())
+    fig.update_yaxes(title_text='Count')
+    fig.update_traces(marker=dict(color='#80ad00'))
+    
+    st.plotly_chart(fig, use_container_width=True)
+#------------------------------------------------------------------------------------------#
+def boxplot(data, width, height, boxplot_title):
+    melted_data = data.melt(var_name='Song Characteristics', value_name='Value')
+    fig = px.box(melted_data, x='Song Characteristics', y='Value', title=boxplot_title)
+    fig.update_layout(width=width,
+                      height=height,
+                      title=dict(font=dict(size=24)))
+    fig.update_traces(marker=dict(color='#80ad00'))
+    
+    st.plotly_chart(fig, use_container_width=True)
+#------------------------------------------------------------------------------------------#
+def box_plots_by_genre(data, width, height):
+    features = ['track_popularity', 'danceability', 'energy', 'key', 'loudness',
+            'speechiness', 'acousticness', 'instrumentalness', 'liveness',
+            'valence', 'tempo', 'duration_ms']
+    fig = make_subplots(rows=6, cols=2, subplot_titles=[f"Distribution of {feature.title()} by Genre" for feature in features])
+    for i, feature in enumerate(features):
+        row = (i // 2) + 1
+        col = (i % 2) + 1
+        fig.add_trace(
+            go.Box(x=data['playlist_genre'],
+                   y=data[feature], 
+                   name=feature.title(), 
+                   opacity=0.6, 
+                   boxmean=True),
+            row=row, col=col
+        )
+        
+        fig.update_xaxes(title_text="Playlist Genre", row=row, col=col)
+        fig.update_yaxes(title_text=feature.title(), row=row, col=col)
+    fig.update_layout(width=width,
+                      height=height,
+                      title=dict(font=dict(size=24)), 
+                      title_text="Box Plots of Audio Features by Playlist Genre", showlegend=False)
+    st.plotly_chart(fig, use_container_width=True)
+#------------------------------------------------------------------------------------------#
 def scatter_plot(df, column, width, height, key, scatterplot_title):
     scatter_plot = px.scatter(df, 
                               x=df[column], 
@@ -265,13 +351,13 @@ if st.session_state.page_selection == "about":
     A Streamlit web application that utilize **Exploratory Data Analysis**, **Data Preprocessing**, and **Machine Learning** to analyze and classify songs from the Spotify API with the 30000 Spotify Songs dataset. Model uses **Random Forest Classifier** to train **Popularity Level Classification** and **Genre Classification**.
 
     ### Pages:
-    1. **Dataset** - The dataset contains around 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, information about the album, and information about the genre.
+    1. **`Dataset`** - The dataset contains around 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, information about the album, and information about the genre.
                      Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness, among others.
-    2. **EDA** - Exploratory Data Analysis of 30000 Spotify Songs. Contains the distribution and relationships of different data into various graphs.
-    3. **Data Cleaning / Pre-processing** - Data cleaning and pre-processing steps this includes Dropping Null Values, Adding Track Age and Track Decade Column, Encoding Genre and Subgenre, Categorizing Popularity, and Adding Artist Popularity Column.
-    4. **Machine Learning** - Using **Random Forest Classifier** to train **Popularity Level Classification**, and **Genre Classification**. This page also includes each model's model evaluation, and feature importance.
-    5. **Prediction** - Prediction page that makes use of the models to predict the song's popularity level and genre.
-    6. **Conclusion** - Summary of the analysis and findings from the exploratory data analysis and model training processes.
+    2. **`EDA`** - Exploratory Data Analysis of 30000 Spotify Songs. Contains the distribution and relationships of different data into various graphs.
+    3. **`Data Cleaning / Pre-processing`** - The data cleaning and pre-processing steps includes Dropping Null Values, Adding Track Age and Track Decade Column, Encoding Genre and Subgenre, Categorizing Popularity, and Adding Artist Popularity Column.
+    4. **`Machine Learning`** - Using **Random Forest Classifier** to train **Popularity Level Classification**, and **Genre Classification**. This page also includes each model's model evaluation, and feature importance.
+    5. **`Prediction`** - Prediction page that makes use of the models to predict the song's popularity level and genre.
+    6. **`Conclusion`** - Summary of the analysis and findings from the exploratory data analysis and model training processes.
     """)
 
 
@@ -283,40 +369,71 @@ elif st.session_state.page_selection == "dataset":
     st.header("📊 Dataset")
 
     st.markdown("""
+                The dataset contains almost ***30,000*** songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, 
+                information about the album, and information about the genre. Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness,
+                among others.  
 
-   The dataset contains almost 30,000 Songs from the Spotify API. The data about the songs include song id, song name, song artist, track popularity, 
-   information about the album, and information about the genre. Also, the dataset includes audio features related to the songs' characteristics, like danceability, energy, loudness, tempo, acousticness,
-   among others[1].
+                `Link:` https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs  
 
-   **Content**
-   The table displays the columns of the dataset along with their respective data types and descriptions. 
+                """)
+    
+    st.subheader("Content")
+    st.markdown("""
+                The table displays the columns of the dataset along with their respective data types and descriptions.
+                """)
+    
+    data_columns = {
+                "Variable": [
+                    "track_id", "track_name", "track_artist", "track_popularity", "track_album_id",
+                    "track_album_name", "track_album_release_date", "playlist_name", "playlist_id",
+                    "playlist_genre", "playlist_subgenre", "danceability", "energy", "key", "loudness",
+                    "mode", "speechiness", "acousticness", "instrumentalness", "liveness", "valence",
+                    "tempo", "duration_ms"
+                ],
+                "Class": [
+                    "character", "character", "character", "double", "character", "character",
+                    "character", "character", "character", "character", "character", "double",
+                    "double", "double", "double", "double", "double", "double", "double", "double",
+                    "double", "double", "double"
+                ],
+                "Description": [
+                    "Song unique ID", "Song Name", "Song Artist", "Song Popularity (0-100) where higher is better",
+                    "Album unique ID", "Song album name", "Date when album released", "Name of playlist",
+                    "Playlist ID", "Playlist genre", "Playlist subgenre",
+                    "Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.",
+                    "Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.",
+                    "The estimated overall key of the track. Integers map to pitches using standard Pitch Class notation . E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.",
+                    "The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typical range between -60 and 0 db.",
+                    "Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.",
+                    "Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.",
+                    "A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.",
+                    "Predicts whether a track contains no vocals. 'Ooh' and 'aah' sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly 'vocal'. The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.",
+                    "Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.",
+                    "A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).",
+                    "The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.",
+                    "Duration of song in milliseconds"
+                ]
+            }
 
-   'Link:' https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs
-
-
-    """)
+    data_columns_df = pd.DataFrame(data_columns)
+    st.table(data_columns_df)
 
 
     # Display the dataset
     st.subheader("Dataset displayed as a Data Frame")
-    st.dataframe(pd.read_csv("data/spotify_songs.csv"), use_container_width=True, hide_index=True)
+    st.dataframe(dataset, use_container_width=True, hide_index=True)
 
     # Describe Statistics
     st.subheader("Descriptive Statistics")
-    st.dataframe(pd.read_csv("data/spotify_songs.csv").describe(), use_container_width=True)
+    st.dataframe(dataset.describe(), use_container_width=True)
 
 
     st.markdown("""
 
-    The results from `df.describe()` highlights the descriptive statistics about the dataset. 
-    
-    The average track popularity is 42.47, with popularity scores spanning from  to 100. 
-    
-    Audio features like danceability and energy have high averages, with 0.65 and 0.69, respectively. 
-    
-    Loudness ranges significantly from -46.4 dB to 1.27 dB. Track durations vary widely, 
-    
-    averaging around 225,800 milliseconds (about 3.8 minutes) but ranging from 4 seconds to over 8.5 minutes
+    The results from `df.describe()` highlights the descriptive statistics about the dataset. The average track popularity is ***42.47***, 
+    with popularity scores spanning from ***0 to 100***. Audio features like danceability and energy have high averages, with ***0.65*** and ***0.69***, 
+    respectively. Loudness ranges significantly from ***-46.4 dB*** to ***1.27 dB***. Track durations vary widely, averaging around ***225,800*** 
+    milliseconds (about 3.8 minutes) but ranging from ***4 seconds*** to over ***8.5 minutes***.
                 
     """)
 
@@ -333,13 +450,98 @@ elif st.session_state.page_selection == "eda":
 
         with st.expander('Legend', expanded=True):
             st.write('''
-                - Data: [30000 Spotify Songs](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs).
-                - :orange[**Pie Chart**]: Distribution of the Music Genre in the dataset.
-                - :orange[**Scatter Plots**]: Difference of Iris species' features.
-                - :orange[**Pairwise Scatter Plot Matrix**]: Highlighting *overlaps* and *differences* among Iris species' features.
+                - **Data**: [30000 Spotify Songs](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs).
+                - :green[**Pie Chart**]: Distribution of the music genre in the dataset.
+                - :green[**Bar Plots**]: Average popularity of each ***genres*** and ***subgenres***.
+                - :green[**Heatmaps**]: Correlation of various features.
+                - :green[**Box Plots**]:
+                    - Distribution of selected ***audio features***.
+                    - Distribution of various ***audio features*** across different ***genres***.
+                - :green[**Histogram**]: Distribution of the ***track popularity*** in the dataset.
+                - :green[**Scatter Plot**]: Correlation between ***artist popularity*** and ***track popularity***.
                 ''')
+    with col[1]:
+        pie_chart(dataset, 'playlist_genre', 500, 300, "Playlist Genre Distribution", 1)
+        st.markdown("""
+                    We can see from the pie chart that the distribution of the playlist genre in the dataset are ***relatively 
+                    equal***. The balanced distribution of playlist genres ensures that the model won't be biased toward any particular genre. 
+                    This is advantageous for model training as it will have a fair amount of data to learn from for each genre.
+                    """)
+    with col[2]:
+        genre_popularity_df = dataset.groupby('playlist_genre')['track_popularity'].mean().reset_index()
+        genre_popularity_df['playlist_genre'] = genre_popularity_df['playlist_genre'].str.title()
+        bar_plot(genre_popularity_df, 'playlist_genre', 'track_popularity', 500, 300, "Average Track Popularity by Playlist Genre", 16, 1)
+        st.markdown("""
+                    The bar chart shows the average **track popularity** for various playlist genres. The `Pop` genre has the highest average track 
+                    popularity at ***47.74***, followed closely by `Latin` at ***47.03***. On the other hand, the `EDM` genre has the lowest average 
+                    popularity at ***34.83***. The other genres, `R&B`, `Rap`, and `Rock`, are relatively similar in average popularity, with scores 
+                    around the low ***40s***, indicating a moderate level of popularity.
+                    """)
+        
+    subgenre_popularity_df = dataset.groupby('playlist_subgenre')['track_popularity'].mean().reset_index()
+    subgenre_popularity_df['playlist_subgenre'] = subgenre_popularity_df['playlist_subgenre'].str.title()
+    bar_plot(subgenre_popularity_df, 'playlist_subgenre', 'track_popularity', 500, 500, "Average Track Popularity by Playlist Subgenre", 24, 2)
+    st.markdown("""
+                The bar chart illustrates the average `track popularity` by `playlist subgenre`, where `Post-Teen Pop` has the highest average popularity 
+                at ***56.83***, and `Progressive Electro House` has the lowest average popularity at ***26.86***. Other subgenres with high popularity 
+                include `Permanent Wave` with ***54.00*** and `Hip Pop` with ***53.84***.
+                """)
+    object_columns = dataset.select_dtypes(include=['object']).columns
+    heatmap_graph_df1 = dataset.drop(columns=object_columns)
+    features_correlation = heatmap_graph_df1.corr().round(2)
+    features_heatmap(features_correlation, 800, 800, 1, "Audio Characteristics Correlation")
+    st.markdown("""
+                The heatmap shows the correlation of various audio features and also the track popularity. The strongest positive correlation is between 
+                `energy` and `loudness` ***(0.68)***, while the strongest negative correlation is between `track popularity` and `instrumentalness` ***(-0.15)***.
+                """)
+    histogram(dataset, 'track_popularity', 500, 500, "Track Popularity Distribution")
+    st.markdown("""
+                The track popularity distribution histrogram shows a ***large concentration of songs with a popularity score of 0***, with counts more than ***3500***. 
+                After this, the distribution becomes more uniform, with popularity scores between 20 and 80 being relatively common. There is a slight decline in the 
+                number of tracks as the popularity increases past 80, indicating fewer extremely popular songs.
+                """)
+    selected_audio_features_df = dataset[['danceability',
+                                          'energy',
+                                          'speechiness',
+                                          'acousticness',
+                                          'liveness',
+                                          'valence',
+                                        ]]
+    selected_audio_features_df.columns = selected_audio_features_df.columns.str.title()
+    boxplot(selected_audio_features_df, 500, 500, "Selected Song Characteristics Distribution")
+    st.markdown("""
+                We can see from the boxplot the distribution of selected song characteristics. `Energy` has the highest median value near ***0.75*** and a wide 
+                interquartile range, indicating energetic tracks are common. `Valence`, which represents the positivity of a track, has the largest interquartile 
+                range, suggesting a wide range of emotions in the songs.
+                """)
+    box_plots_by_genre(dataset, width=1200, height=1800)
+    st.markdown("""
+                The graph shows the distribution of various audio features across different playlist genres.
 
+- The `track popularity` plot shows that the popularity of tracks is fairly consistent across genres, with medians and interquartile ranges showing little variation.
 
+- For `danceability`, we can see that **Latin** and **Rap** genres have the highest median danceability, indicating that songs in these genres tend to be more danceable compared to others. **Rock** has the lowest median danceability which suggesting that songs in this genre are generally less danceable.
+
+- The `energy` plot shows that the **EDM** genre has the highest median energy level, suggesting that songs in this genre tend to have higher energy, while **R&B** has the lowest median energy, indicating that songs in this genre generally have lower energy compared to the others.
+
+- The `key` distribution shows a similar range across genres, with no major variation in the medians, indicating that musical key is not strongly differentiated by genre.
+
+- We can observe that the median `loudness` for all genres falls between ***0 dB and -10 dB**, with little difference between genres. **Pop** and **EDM** genres exhibit slightly higher median loudness compared to others.The **Latin** genre has the lowest outliers that go as low as ***-40 dB***, while the other genres remain more consistently loud.
+
+- `Speechiness` varies significantly across genres, with **Rap** having the highest speechiness levels, reflecting its lyrical nature. Other genres like **EDM**, **Pop**, and **Rock** show much lower median speechiness, consistent with their focus on instrumental or melodic elements over spoken words.
+
+- The `acousticness` plot reveals that genres like **R&B** and **Latin** have higher medians, suggesting that songs in these genres often contain more acoustic elements. In contrast, **EDM** has very low acousticness, as it primarily relies on electronic music.
+
+- For `instrumentalness`, **EDM** has the highest median and widest distribution. This indicates that many **EDM** tracks are more instrumental compared to other genres, which makes sense since most EDM music has no vocals. In contrast, **Pop**, **Rap**, **Rock**, **Latin**, and **R&B** have much lower median values, with the majority of songs exhibiting very low instrumentalness, suggesting that these genres are typically more vocal.
+
+- The `liveness` distributions across genres show slight variation, but overall, most genres have low median liveness, indicating that tracks are typically studio-recorded rather than live performances.
+
+- The `valence` plot shows relatively similar distributions across genres, with slight variations. **Latin** appear to have slightly higher valence, suggesting that this genre may feature more positive or upbeat tracks.
+
+- `Tempo` varies across genres, with **EDM** having a slightly higher median tempo, reflecting the genre's fast-paced, dance-oriented nature. Other genres show similar tempo distributions.
+
+- Lastly, the `track durations` in milliseconds across different playlist genre shows that **Rock** has the highest median track duration, indicating that songs in this genre tend to be longer than those in other genres. **EDM** has the lowest median track duration, implying that EDM tracks are generally shorter.
+                """)
      
 #======================================================================================================================================#
 # Data Cleaning Page
@@ -350,23 +552,27 @@ elif st.session_state.page_selection == "data_cleaning":
     st.markdown("### Dropping Null Values")
     col = st.columns([1, 3])
 
+    with col[0]:
+        st.markdown("*Count of null values*")
+        null_count = dataset.isna().sum().reset_index(name='Nulls').rename(columns={'index': 'Column'})
+        null_count.index = null_count['Column']
+        null_count = null_count.drop(columns=['Column'])
+        null_count
     with col[1]:
         st.markdown("*Null Values*")
         null_columns = dataset[['track_id'] + dataset.columns[dataset.isna().any()].tolist()]
         null_values = null_columns[null_columns.isna().any(axis=1)]
         st.dataframe(null_values)
-
+        
         st.markdown("*Drop rows with missing values*")
         st.code("""
-data = data.dropna()
-        """)
-
-
+                data = data.dropna()
+                """)
     st.markdown("""
-                We can see that the columns `track_name`, `track_artist`, and `track_album_name` each contain ***5 null values***. 
-                Notably, all of these null values originate from the same 5 rows in the dataset. Since the count of values is
-                only 5, we can use `dropna()` to remove the rows with missing values. The count of the removed rows will not
-                have a significant impact on the dataset size (more than 30,000) and is unlikely to skew the analysis or model results.
+            We can see that the columns `track_name`, `track_artist`, and `track_album_name` each contain ***5 null values***. 
+            Notably, all of these null values originate from the same 5 rows in the dataset. Since the count of values is
+            only 5, we can use `dropna()` to remove the rows with missing values. The count of the removed rows will not
+            have a significant impact on the dataset size (more than 30,000) and is unlikely to skew the analysis or model results.
     """)
     st.markdown("---")
     st.markdown("### Converting Dates and Adding Track Age and Track Decade Columns")
@@ -496,7 +702,7 @@ data = data.dropna()
     features_correlation = heatmap_graph_df.corr().round(2)
     #-------------------------------------------------------------------------------------------#
     heatmap_title = "Audio Features and Interactions Correlation Matrix"
-    features_heatmap(features_correlation, 800, 800, 1, heatmap_title)
+    features_heatmap(features_correlation, 800, 800, 2, heatmap_title)
     st.markdown("""
                 The heatmap shows the correlation of various audio features and also the track popularity as the previous heatmap, but this time removing columns 
                 that may not be strong predictors and adding the new columns `artist popularity`, `track month`, `track year`, `track decade`, and `track age`. 
