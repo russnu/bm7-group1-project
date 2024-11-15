@@ -636,7 +636,7 @@ elif st.session_state.page_selection == "data_cleaning":
                 storing the result in the `track_age` and `track_decade` column.
                 """)
     st.markdown("---")
-    st.markdown("### Converting Dates and Adding Track Age and Track Decade Columns")
+    st.markdown("### Encoding Genre and Subgenre")
     st.code("""
             # Encode genre and subgenre
             le_genre = LabelEncoder()
